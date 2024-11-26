@@ -12,7 +12,7 @@ const corsOptions = {
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Especifica o diretório para armazenar as imagens enviadas
-    cb(null, '/uploads/'); // Substitua por seu caminho de upload desejado
+    cb(null, 'uploads/'); // Substitua por seu caminho de upload desejado
   },
   filename: function (req, file, cb) {
     // Mantém o nome original do arquivo por simplicidade
@@ -37,7 +37,7 @@ const routes = (app) => {
   // Rota para upload de imagens (assumindo uma única imagem chamada "imagem")
   app.post("/upload", upload.single("imagem"), uploadImagem); // Chama a função controladora para processamento da imagem`
 
-  app.put("/upload/:id", atualizarNovoPost);
+  app.put("/upload/:id", atualizarNovoPost)
 };
 
 export default routes;

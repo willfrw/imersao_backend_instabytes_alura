@@ -1,6 +1,6 @@
 import {getTodosPosts, criarPost, atualizarPost} from "../models/postsModel.js";
 import fs from "fs";
-import gerarDescricaoComGemini from "../services/geminiService.js"
+import {gerarDescricaoComGemini, gerarAltComGemini} from "../services/geminiService.js"
 
 export async function listarPosts(req, res) {
     // Chama a função para buscar os posts
@@ -44,11 +44,12 @@ export async function atualizarNovoPost(req, res) {
     try {
         const imgBuffer = fs.readFileSync(`uploads/${id}.png`)
         const descricao = await gerarDescricaoComGemini(imgBuffer)
+        const alt = await gerarAltComGemini(imgBuffer)
 
         const post = {
             imgUrl: urlImagem,
             descricao: descricao,
-            alt: req.body.alt
+            alt: alt
         }
 
         const postCriado = await atualizarPost(id, post);
